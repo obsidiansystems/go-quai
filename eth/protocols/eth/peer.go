@@ -17,6 +17,7 @@
 package eth
 
 import (
+	"fmt"
 	"math/rand"
 	"sync"
 
@@ -358,6 +359,7 @@ func (p *Peer) SendNewBlock(block *types.Block) error {
 		p.knownBlocks.Pop()
 	}
 	p.knownBlocks.Add(block.Hash())
+	fmt.Println("Sub Manifest broadcasted: ", block.Body().SubManifest)
 	return p2p.Send(p.rw, NewBlockMsg, &NewBlockPacket{
 		Block: block,
 	})
